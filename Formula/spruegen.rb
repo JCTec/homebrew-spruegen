@@ -1,6 +1,4 @@
 class Spruegen < Formula
-  include Language::Python::Virtualenv
-
   desc "Deterministic sprue-tree generator for lost-wax ring casting"
   homepage "https://github.com/JCTec/spruegen"
   url "https://github.com/JCTec/spruegen/archive/refs/tags/v0.4.0.tar.gz"
@@ -10,7 +8,7 @@ class Spruegen < Formula
   depends_on "python@3.12"
 
   def install
-    virtualenv_create(libexec, "python3.12")
+    system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", libexec
     # Prebuilt wheels for manifold3d/scipy/shapely/rtree instead of source builds.
     system libexec/"bin/pip", "install", "--no-cache-dir", "#{buildpath}[gui]"
     bin.install_symlink libexec/"bin/spruegen"
